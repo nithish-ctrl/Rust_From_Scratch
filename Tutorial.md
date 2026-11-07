@@ -3,7 +3,7 @@
 Lets learn Rust from Scratch 
 The speed through of the concepts or stright up implementation
 
-I will write the though process here and the content I'm learning here with small code snippets. 
+I will write the thought process here and the content I'm learning here with small code snippets. 
 
 I am following this youtube video : link
 The implementation may contain the mix of the code of this video and my personal implementation around them. 
@@ -72,3 +72,47 @@ fn main(){
 ```
 
 Let's implement some arrays
+``` rust 
+fn main(){
+    let data = [1, 2, 4, 5, 6];
+    println!("{data}");
+}
+```
+This will give an error, we can use :? to avoid this. This will enable debug format, it is not good practise to use it to print in some application. This is merely to print the variable to the terminal to see it without getting any custom control for the data showing up. 
+
+``` rust
+println!("{data:?}");
+```
+Any string we made earlier are called a literal, that will be a constant value in your executable. Theres a way to make dynamic strings. 
+
+``` rust
+fn main(){
+    let mut name = String::from("Snigdha");
+    println!("");
+}
+```
+This String method can be used to define the value like above or while we are taking input from the user when we don't know the value in advance. 
+
+``` rust 
+fn main(){
+    let name = String::new();
+    println!("{name}"); // This will print an empty string. 
+}
+```
+
+Let's read some input from the user now, 
+
+``` rust 
+use std::io;
+fn main(){
+    println!("Whats your name :");
+    let mut name = String::new();
+    io::stdin().read_line(name);
+}
+```
+This gives an error because we need to pass the mutable reference and not the string itself. Also the variable has to be defined mutable. 
+
+``` rust 
+io.stdin().readline(&mut name)
+```
+
