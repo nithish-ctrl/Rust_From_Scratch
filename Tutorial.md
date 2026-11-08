@@ -113,6 +113,15 @@ fn main(){
 This gives an error because we need to pass the mutable reference and not the string itself. Also the variable has to be defined mutable. 
 
 ``` rust 
-io.stdin().readline(&mut name)
+io.stdin().read_line(&mut name);
 ```
 
+We can a expect to reply when a error pops up. 
+
+``` rust
+use std::io; 
+fn main(){
+    io::stdin().read_line(&mut name).expect("Error reading the name.");
+    println!("The name is : {}", name.trim());
+}
+```
