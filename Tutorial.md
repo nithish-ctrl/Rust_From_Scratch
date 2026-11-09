@@ -125,3 +125,16 @@ fn main(){
     println!("The name is : {}", name.trim());
 }
 ```
+### Loops
+
+loop 
+
+for 
+
+while
+
+
+### Structs and Collections 
+Covering some collections and structs 
+
+Lets build a small game and implement them. 
