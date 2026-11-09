@@ -127,11 +127,35 @@ fn main(){
 ```
 ### Loops
 
-loop 
+1. loop 
+This loop will run till the break command is reached. It has to be explicitly broken. 
+``` rust 
+loop {
+    break;
+}
+```
 
-for 
+2. for
+This loop will run for specific number of times.
+``` rust
+// With an iter : '=' sign indicates that the upper limit is also included. 
+for i in 1..=5 {
+    println!("{i}"); 
+}
 
-while
+// To loop through an array
+for number in numbers{
+    println!("{number}");
+}
+```
+
+3. while
+This loop will run as long as the condition is true. 
+``` rust 
+while iter <= max_number {
+    println("The iter:{} is smaller than max_num:{}", iter, max_number);
+}
+```
 
 
 ### Structs and Collections 
@@ -187,8 +211,19 @@ impl fmt::Display for CharacterClass{
 
 Collections of items. 
 
-Implementation :
-
+Defining an array : 
 ``` rust 
 let characters = [character1, character2];
 ```
+
+Accesing elements from an array : 
+
+``` rust 
+for character in characters{
+    println!("Character Name : {}", character.0);
+    println!("Character Class : {}", character.1);
+    println!("Character Health : {}", character.2);
+    println!("Character Mana : {}", character.3);
+}
+```
+The output of them will be dependent on the trait we used for display. 
