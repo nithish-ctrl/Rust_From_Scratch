@@ -138,3 +138,57 @@ while
 Covering some collections and structs 
 
 Lets build a small game and implement them. 
+The file for this is 'Shadow_Lord'. 
+
+Enum Definition : 
+``` rust 
+enum CharacterClass {
+    warrior = 1,
+    Mage,
+    Rogue,
+}
+```
+
+We can assign values to them, like how we did to warrior. Other values will get incremented to one in sequential order.
+
+While usage 
+``` rust
+let character1 = ("Mongrel", CharacterClass::Warrior, 100, 50);
+let character2 = ("Azure", CharacterClass::Mage, 75, 55);
+```
+
+#### Traits 
+
+We will look into Display Trait 
+- We can custom implement a trait for the character class. This enables us to define how the enum values should be formatted when printed using the {} format specifier. 
+
+- We can also use the Debug trait, this is useful for debugging purposes, while the custom trait is useful for user-facing output. 
+
+``` rust 
+// Debug trait 
+#[derive(Debug)]
+
+// Custom implementation
+impl fmt::Display for CharacterClass{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::result{
+        match self{
+            CharacterClass::Warrior => write!(f, "Warrior"),
+            CharacterClass::Mage => write!(f, "Mage Solider"),
+            CharacterClass::Rogue => write!(f, "Rogue"),
+            CharacterClass::Assassin => write!(f, "Assassin"),
+            CharacterClass::Healer => write!(f, "Healer"),
+        }
+    }
+}
+```
+
+
+### Arrays 
+
+Collections of items. 
+
+Implementation :
+
+``` rust 
+let characters = [character1, character2];
+```
