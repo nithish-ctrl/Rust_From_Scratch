@@ -57,6 +57,8 @@ fn main() {
         println!("Character Mana : {}", character.3);
     }
     */
+
+    rewards();
 }
 
 fn rewards(){
@@ -67,5 +69,16 @@ fn rewards(){
         ("Dragon", 100),
     ];      
 
-    let map = [[false; 5]; 5];                                                
+    let mut map = [[false; 5]; 5]; 
+    println!("Map : {map:?}");
+
+    map[2][4] = true;
+    map[3][4] = true;
+    map[2][3] = true;
+    map[2][2] = true;
+    map[1][1] = true;
+
+    for row in map{
+        println!("{row:?}");
+    }
 }
