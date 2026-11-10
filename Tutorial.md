@@ -173,7 +173,7 @@ enum CharacterClass {
 }
 ```
 
-We can assign values to them, like how we did to warrior. Other values will get incremented to one in sequential order.
+We can assign values to them, like how we did to warrior. Other values will get incremented to one in sequential order even if we did not assign them values. 
 
 While usage 
 ``` rust
@@ -205,7 +205,7 @@ impl fmt::Display for CharacterClass{
     }
 }
 ```
-
+The string above will be displayed for its corresponding character class. 
 
 ### Arrays 
 
