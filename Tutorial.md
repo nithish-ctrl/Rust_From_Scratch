@@ -175,11 +175,12 @@ enum CharacterClass {
 
 We can assign values to them, like how we did to warrior. Other values will get incremented to one in sequential order even if we did not assign them values. 
 
-While usage 
+Usage : 
 ``` rust
 let character1 = ("Mongrel", CharacterClass::Warrior, 100, 50);
 let character2 = ("Azure", CharacterClass::Mage, 75, 55);
 ```
+The elements inside the tuple are Character name, Character class, Health of the Character, Mana of the character. 
 
 #### Traits 
 
