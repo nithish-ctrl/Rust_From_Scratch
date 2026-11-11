@@ -227,4 +227,5 @@ for character in characters{
     println!("Character Mana : {}", character.3);
 }
 ```
+We use dot notation to access elements from an array. 
 The output of them will be dependent on the trait we used for display. 
