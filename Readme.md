@@ -1,7 +1,8 @@
 # Rust from Scratch 
 
 Lets learn Rust from Scratch 
-The speed through of the concepts or stright up implementation
+
+I will set up rules for myself. 
 
 ## Rules : 
 1. No copy and Pasting
@@ -13,3 +14,4 @@ The speed through of the concepts or stright up implementation
 2. I will complete the 6 hours of tutorial phase 
 3. Build a hard project from scratch
 4. Prolly implement some of my course work from scratch in rust.
+5. 
