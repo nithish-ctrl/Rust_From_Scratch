@@ -1,7 +1,7 @@
 # Rust from Scratch 
 
 Lets learn Rust from Scratch 
-The speed through of the concepts or stright up implementation
+Will speed through the concepts or stright up implementation
 
 I will write the thought process here and the content I'm learning here with small code snippets. 
 
