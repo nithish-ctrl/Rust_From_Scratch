@@ -11,7 +11,8 @@ I will set up rules for myself.
 
 ## Mentality 
 1. Atleast One commit everyday 
-2. I will complete the 6 hours of tutorial phase 
+2. I will complete the hours of tutorial phase 
 3. Build a hard project from scratch
 4. Prolly implement some of my course work from scratch in rust.
-5. 
+
+The Tutorial file has the notes of the things I will be learning. 
