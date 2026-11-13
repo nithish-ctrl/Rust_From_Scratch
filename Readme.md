@@ -16,3 +16,5 @@ I will set up rules for myself.
 4. Prolly implement some of my course work from scratch in rust.
 
 The Tutorial file has the notes of the things I will be learning. 
+
+I will also code some optimizers we generally use in deep learning in rust to get more comfortable to implement AI concepts in rust. To be honest, thats the main goal.  
