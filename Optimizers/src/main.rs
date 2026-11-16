@@ -8,21 +8,22 @@ fn Batch_gradient_descent(epoch: i32, learning_rate: f64, weights: &mut Vec<f64>
 }
 
 fn EWMA(){
+    println!("Exponential Weighted Moving Average");
 
 }
 
 fn Momentum(){
-
+    println!("Momentum");
 }
 
 fn Ada_Grad(){
-
+    println!("Ada Grad");
 }
 
 fn NAG(){
-
+    println!("Nesterov Accelerated Gradient");
 }
 
 fn Adam(){
-
+    println!("Adam");
 }
