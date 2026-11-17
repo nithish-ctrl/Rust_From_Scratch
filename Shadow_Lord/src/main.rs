@@ -5,14 +5,15 @@ use std::fmt;
 To avoid the need to implement the Debug trait manually, we can use this attribute to automatically derive the Debug trait for the enum. This allows us to use the {:?} format specifier to print the enum values in a 
 human-readable format.But there is less customization available with the Debug trait. If we want to customize the output format of the enum values, we can implement the Display trait instead. Here, 
 the name will be straight up printed as it is, but if we want to customize the output format, we can implement the Display trait for the enum. This allows us to define how the enum values should be formatted when 
-printed using the {} format specifier. The debug trait is useful for debugging purposes, while the display trait is useful for user-facing output. Depending on the use case, we can choose to implement either or both traits for our enum.
+printed using the {} format specifier. The debug trait is useful for debugging purposes, while the custom trait is useful for user-facing output. Depending on the use case, we can choose to implement either or both traits for our enum.
 */
 enum CharacterClass {
-        Warrior,
-        Mage,
-        Rogue,
-        Assassin,
-        Healer,
+// The enum values are assigned integer values starting from 1. The first variant, Warrior, is assigned the value 1, and the subsequent variants are assigned incrementing values (2 for Mage, 3 for Rogue, and so on).      
+        Warrior = 1,
+        Mage = 2,
+        Rogue = 3,
+        Assassin = 4,
+        Healer = 5,
 }
 
 // Custom implementation of the Display trait for the CharacterClass enum. This allows us to define how the enum values should be formatted when printed using the {} format specifier.
@@ -69,14 +70,14 @@ fn rewards(){
         ("Dragon", 100),
     ];      
 
-    let mut map = [[false; 5]; 5]; 
+    let mut map = [[0; 5]; 5]; 
     println!("Map : {map:?}");
 
-    map[2][4] = true;
-    map[3][4] = true;
-    map[2][3] = true;
-    map[2][2] = true;
-    map[1][1] = true;
+    map[2][4] = 1;
+    map[3][4] = 3;
+    map[2][3] = 2;
+    map[2][2] = 5;
+    map[1][1] = 4;
 
     for row in map{
         println!("{row:?}");
