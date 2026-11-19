@@ -63,6 +63,7 @@ fn main() {
 }
 
 fn rewards(){
+    // Array of tuples
     let mobs = [
         ("Goblin", 10),
         ("Orc", 20),
@@ -70,6 +71,7 @@ fn rewards(){
         ("Dragon", 100),
     ];      
 
+    // Array definition with fixed size and type 
     let mut map = [[0; 5]; 5]; 
     println!("Map : {map:?}");
 
