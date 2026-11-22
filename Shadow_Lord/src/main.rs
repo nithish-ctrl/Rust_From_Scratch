@@ -84,4 +84,18 @@ fn rewards(){
     for row in map{
         println!("{row:?}");
     }
+
+    // Vector 
+    let mut kill: Vec<(String, i32)> = Vec::new();
+    kill.push(("Goblin".to_string(), 10));
+    kill.push(("Orc".to_string(), 20));
+
+    println!("Killed Mobs : {:?}", kill);
+
+    let mut unlocked: Vec<CharacterClass> = Vec::new();
+    unlocked.push(CharacterClass::Warrior);
+    unlocked.push(CharacterClass::Mage);
+
+    println!("Unlocked Classes : {:?}", unlocked);
 }
+
