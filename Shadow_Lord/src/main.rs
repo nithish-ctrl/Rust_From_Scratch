@@ -28,6 +28,23 @@ impl fmt::Display for CharacterClass {
         }
     }
 }
+
+// We are gonna write a trait to take a number and return the corresponding enum value. 
+// This is useful when we want to convert a number (e.g., from user input or data) into the corresponding enum variant.
+impl CharacterClass {
+    fn from_number(num: u8) -> CharacterClass {
+        match num {
+            1 => CharacterClass::Warrior,
+            2 => CharacterClass::Mage,
+            3 => CharacterClass::Rogue,
+            4 => CharacterClass::Assassin,
+            5 => CharacterClass::Healer,
+            _ => panic!("Invalid character class number"),
+        }
+    }
+} 
+
+
 fn main() {
     let _character_class1 = CharacterClass::Warrior;
     let _character_class2 = CharacterClass::Mage;
@@ -95,7 +112,14 @@ fn rewards(){
     let mut unlocked: Vec<CharacterClass> = Vec::new();
     unlocked.push(CharacterClass::Warrior);
     unlocked.push(CharacterClass::Mage);
-
     println!("Unlocked Classes : {:?}", unlocked);
+
+    let mut unlocked_custom: Vec<CharacterClass> = Vec::new();
+    /*  This could be confusing - Actually Im supposed use the gem class instead of character class. The map value 
+    stores the location and we take in data from it and update the unlocked character using our custom trait. 
+    But I did not make it in such a way so how we can visualize it for now is that we can randomly unlock some characters
+    by moving through the map, I will fix it by making an enum for mobs and defining a custom trait for them and taking the
+    data from the map and then pushing it to the unlocked characters. */ 
+    data = map[1][2];
 }
 
