@@ -1,6 +1,9 @@
 use std::fmt;
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
+use std::io;
 
-#[derive(Debug)]  
+#[derive(Debug, FromPrimitive)]  
 /* 
 To avoid the need to implement the Debug trait manually, we can use this attribute to automatically derive the Debug trait for the enum. This allows us to use the {:?} format specifier to print the enum values in a 
 human-readable format.But there is less customization available with the Debug trait. If we want to customize the output format of the enum values, we can implement the Display trait instead. Here, 
@@ -87,6 +90,7 @@ fn rewards(){
         ("Troll", 30),
         ("Dragon", 100),
     ];      
+    println!("Mobs and their reward : {:?}", mobs);
 
     // Array definition with fixed size and type 
     let mut map = [[0; 5]; 5]; 
@@ -120,6 +124,77 @@ fn rewards(){
     But I did not make it in such a way so how we can visualize it for now is that we can randomly unlock some characters
     by moving through the map, I will fix it by making an enum for mobs and defining a custom trait for them and taking the
     data from the map and then pushing it to the unlocked characters. */ 
-    data = map[1][2];
+    let mut data = map[2][4];
+    unlocked_custom.push(CharacterClass::from_number(data));
+    println!("Unlocked Classes with Custom trait : {:?}", unlocked_custom);
+
+    /* Converting from a number to an enum value and vice versa is hard so theres a crate we can use for that. 
+    In terminal : 
+    cargo add num-derive num-traits
+
+    Then 
+    use num_derive::FromPrimitive;
+    use num_traits::FromPrimitive;
+    */
+    data = map[3][4];
+    unlocked_custom.push(CharacterClass::from_u8(data).unwrap()); // replace our custom trait with the FromPrimitive trait from the num-derive and num-traits crates. This allows us to convert from a number to an enum value using the from_u8 method provided by the FromPrimitive trait. 
+    ///The unwrap() method is used to handle the Option returned by from_u8, assuming that the conversion will always succeed for valid numbers.
+    println!("unlocked classes with num-derive and num-traits : {:?}", unlocked_custom);
+
+
+    // Looping the character unlocking by walking through the map. 
+    while unlocked_custom.len() < 5 {
+    // Taking input 
+    println!("Search an X Y position in the map 0-4 (example input : 2 4) : ");
+    let mut input = String::new();
+    match io::stdin().read_line(&mut input) {
+        Ok(_) => {
+
+        }
+        Err(_) =>
+        {
+            println!("Failed to read the line.");
+        }
+    }
+
+    let parts: Vec<&str> = input.trim().split_whitespace().collect();
+
+    if parts.len() != 2 {
+        println!("Invalid inpput, please provide two numbers separated by a space.");
+        continue;
+    }
+
+    let (x, y) = match (parts[0].parse::<u8>(), parts[1].parse::<u8>()) {
+        (Ok(x), Ok(y)) => (x, y),
+        _ => {
+            println!("Invalid input !");
+            continue;
+        }
+
+    };
+
+    if x>=5 || y>=5 {
+        println!("Invalid index");
+        continue;
+    }
+
+    data = map[x as usize][y as usize];
+
+    let _character = match CharacterClass::from_u8(data){
+        Some(_character) => _character,
+        None => {
+            println!("No character found at this position.");
+            continue;
+        }
+    };
+    unlocked_custom.push(_character);
+    map[x as usize][y as usize] = 0;
+    // unlocked_custom.push(CharacterClass::from_u8(data).expect("Invalid input is given")); Removed this and added the above match to prevent from panicing. 
+    println!("{data:?} is found at the position ({x}, {y}) and the corresponding classes are unlocked : {:?}", unlocked_custom);
+    }
+    println!("You found the required number of characters, Congrats !!");
+
+    // Hash maps
+    let mut character_values: HashMap<Gem, f64> = HashMap::new();
 }
 
