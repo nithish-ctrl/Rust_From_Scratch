@@ -2,8 +2,9 @@ use std::fmt;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use std::io;
+use std::collections::HashMap;
 
-#[derive(Debug, FromPrimitive)]  
+#[derive(Debug, FromPrimitive, Eq, PartialEq, Hash)]  
 /* 
 To avoid the need to implement the Debug trait manually, we can use this attribute to automatically derive the Debug trait for the enum. This allows us to use the {:?} format specifier to print the enum values in a 
 human-readable format.But there is less customization available with the Debug trait. If we want to customize the output format of the enum values, we can implement the Display trait instead. Here, 
@@ -160,7 +161,7 @@ fn rewards(){
     let parts: Vec<&str> = input.trim().split_whitespace().collect();
 
     if parts.len() != 2 {
-        println!("Invalid inpput, please provide two numbers separated by a space.");
+        println!("Invalid input, please provide two numbers separated by a space.");
         continue;
     }
 
@@ -195,6 +196,19 @@ fn rewards(){
     println!("You found the required number of characters, Congrats !!");
 
     // Hash maps
-    let mut character_values: HashMap<Gem, f64> = HashMap::new();
+    let mut character_value: HashMap<CharacterClass, f64> = HashMap::new();
+    character_value.insert(CharacterClass::Warrior, 1000.00);
+    character_value.insert(CharacterClass::Rogue, 750.00);
+    character_value.insert(CharacterClass::Mage, 750.00);
+    character_value.insert(CharacterClass::Assassin, 850.00);
+    let mut sum = 0.0;
+    for character in unlocked_custom{
+        sum += character_value[&character];
+    }
+
+    println!("The Total Character value is : {sum}");
 }
 
+fn game() {
+    // Generate Map and organise thing here.
+}
