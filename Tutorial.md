@@ -299,7 +299,7 @@ println!("Unlocked Pokemons from map : {:?}", unlocked);
 Lets let a loop now to walk through the map and unlock 5 pokemons. 
 
 ``` rust
-
+// Pokedex logic
 while unlocked.len() < 5 {
     println!("Search for an X Y position in the map 0-4 (example input : 2 3) : ");
     
