@@ -9,7 +9,7 @@ I am following this youtube video : link
 The implementation may contain the mix of the code of this video and my personal implementation around them. 
 
 Cargo is built on top of rustc
-We can stright up make a rust file in a dir and run it using rustc <file_name>.
+We can straight up make a rust file in a dir and run it using rustc <file_name>.
 We can also create a project using cargo new <folder_name>
 The folder will have a src file and a cargo.toml. cargo.lock file.
 src file is where all the code goes.
@@ -197,11 +197,11 @@ We will look into Display Trait
 impl fmt::Display for CharacterClass{
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::result{
         match self{
-            CharacterClass::Warrior => write!(f, "Warrior"),
-            CharacterClass::Mage => write!(f, "Mage Solider"),
-            CharacterClass::Rogue => write!(f, "Rogue"),
-            CharacterClass::Assassin => write!(f, "Assassin"),
-            CharacterClass::Healer => write!(f, "Healer"),
+            CharacterClass::Warrior => write!(f, "Warrior - Tank or the elegant sword type."),
+            CharacterClass::Mage => write!(f, "Mage - Uses magic as the weapon"),
+            CharacterClass::Rogue => write!(f, "Rogue - Brawler, no elegancy, ruthless swings and dirty moves."),
+            CharacterClass::Assassin => write!(f, "Assassin - One attack to eliminate the enemy, more of hide and attack."),
+            CharacterClass::Healer => write!(f, "Healer - To heal the troops in the army, does minimal to no damage and has insane health stats."),
         }
     }
 }
@@ -228,4 +228,127 @@ for character in characters{
 }
 ```
 We use dot notation to access elements from an array. 
-The output of them will be dependent on the trait we used for display. 
+The output of them will be dependent on the trait we used for display.
+
+Array defintion with fixed size and type
+``` rust
+let mut map = [[0; 5]; 5];
+println!("Map : {map:?}");
+
+map[2][4] = 1;
+map[3][4] = 3;
+```
+
+Accessing elements in a array 
+``` rust
+for row in map{
+    println!("{row:?}");
+}
+```
+
+Vector definition and pushing elements into vectors
+``` rust 
+let mut kill: Vec<(String, i32)> = Vec::new();
+kill.push(("Goblin".to_string(), 10));
+kill.push(("Orc".to_string(), 20));
+
+println!("Killed Mobs : {:?}", kill);
+```
+
+Lets make a vector called unlocked pokemons and walk through the map and push the the pokemon founds in the map into it. 
+
+``` rust
+enum PokemonClass {
+    Pikachu = 1,
+    Charmander = 2,
+    Chikorita = 3,
+    Abra = 4,
+}
+
+impl PokemonClass{
+    fn from_map(num : u8) -> PokemonClass {
+        match num {
+            1 => PokemonClass::Pikachu,
+            2 => PokemonClass::Charmander,
+            3 => PokemonClass::Charizard,
+            4 => PokemonClass::Blastoise,
+            _ => panic!("Invalid Pokemon "),
+        }
+    }
+}
+
+let mut unlocked: Vec<PokemonClass> = Vec::new();
+
+let mut data = map[2][4];
+unlocked.push(PokemonClass::from_map(data));
+unlocked.push(PokemonClass::from_map(data));
+println!("Unlocked Pokemons : {:?}", unlocked);
+```
+
+This could also be done with a rust crate 
+
+``` rust 
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
+
+data = map[3][4];
+unlocked.push(PokemonClass::from_u8(data).unwrap());
+println!("Unlocked Pokemons from map : {:?}", unlocked);
+```
+
+Lets let a loop now to walk through the map and unlock 5 pokemons. 
+
+``` rust
+
+while unlocked.len() < 5 {
+    println!("Search for an X Y position in the map 0-4 (example input : 2 3) : ");
+    
+    let mut input = String::new();
+    match io::stdin().readline(&mut input){
+        Ok(_) => {
+
+        }
+        Err(_) => {
+            println!("Failed to read the line");
+        }
+    }
+
+    let parts: Vec<&str> = input.trim().split_whitespaces().collect();
+
+    if parts.len() != 2 {
+        println!("invalid input, please provide two numbers separtely");
+        continue;
+    }
+
+    let (x,y) = match (parts[0].parse::<u8>(), part[1].parse::<u8>()){
+        (Ok(x), Ok(y)) => (x, y);
+        _ => {
+            println!("Invalid Input ");
+            continue;
+        }
+    };
+
+    if x>=5 || y>=5 {
+        println!("Invalid index");
+        continue;
+    }
+
+    data = map[x as usize][y as usize];
+
+    let pokemon = match PokemonClass::from_u8(data){
+        some(pokemon) => pokemon,
+        None => {
+            println!("No character found at this position.");
+            continue;
+        }
+    };
+
+    unlocked.push(pokemon);
+    map[x for usize][y for usize] = 0;
+
+    println!("{data:?} is found at the position {{x}, {y}} and the corresponding pokemons are unlocked : {unlocked:?}", unlocked);
+}
+println!("You found the required numbers of pokemon Congrats");
+```
+
+Hash map and its definition
