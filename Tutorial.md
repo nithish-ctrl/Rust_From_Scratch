@@ -498,7 +498,7 @@ The above code would work because the lifetime of the reference ends with its la
 
 So in summary, we can use one mutable reference or multiple immutable references. Also, the value reference should be valid like the reference cannot outlive the data. 
 
-### Functions
+### Functions & Ownership
 If we try to pass a parameter to a function, the value gets passed from the value to the function. 
 
 ``` rust 
@@ -541,4 +541,64 @@ fn main(){
     println!("Hello {first} {last}.");
 }
 ```
+### Mutable Parameters
+Basically we pass some data to a function and they have the ability to modify this data. 
 
+``` rust 
+use std::mem;
+
+fn swap(first: &mut String, last: &mut String){
+    mem::swap(first, last);
+}
+
+fn main(){
+    let mut first_name = "Snigdha";
+    let mut last_name = "Itla";
+    swap(&mut first_name, &mut last_name);
+}
+```
+
+### Slices
+Basically access a part of a string or an array instead of the whole string or array. 
+
+``` rust
+fn main(){
+    let name = String::from("Snigdha Itla");
+    let last = &name[9..];
+
+    println!("The name is {name} and last name is {last}");
+}
+```
+
+This is the second string type and this is what we use as a string literal.
+
+``` rust 
+let name = "Snigdha"; // This is a string slice data type. 
+```
+
+The String is a dynamic string type. Mostly in the functions, the parameters are defined as string slices instead of String. We can reference this string literals using &str while we use &String for String. 
+
+``` rust 
+fn greet(frst: &str, lst: &str){
+    println!("Hello {frst} {lst}, nice meeting you.");
+}
+
+fn main(){
+    let first = "Snigdha";
+    let last = "Itla";
+    greet(&first, &last)
+}
+```
+Or we can also use the .as_str()
+
+``` rust
+fn greet(frst: &str, lst: &str){
+    println!("Hello {frst} {lst}, nice meeting you.");
+}
+
+fn main(){
+    let first = String::from("Snigdha");
+    let last = String::from("Itla");
+    greet(&first.as_str(), &last.as_str())
+}
+```
