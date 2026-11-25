@@ -246,7 +246,7 @@ for row in map{
 }
 ```
 
-Vector definition and pushing elements into vectors
+### Vector definition and pushing elements into vectors
 ``` rust 
 let mut kill: Vec<(String, i32)> = Vec::new();
 kill.push(("Goblin".to_string(), 10));
@@ -351,4 +351,96 @@ while unlocked.len() < 5 {
 println!("You found the required numbers of pokemon Congrats");
 ```
 
-Hash map and its definition
+### Hash map and its definition
+
+
+
+
+
+
+
+
+
+### Scope 
+Basically where the defined variables and functions or constants are valid or could be called and utilised. 
+
+### Reference
+
+```  rust 
+fn main(){
+    let name = String::from("Snigdha");
+    let n = &name;
+    println!("{n}");
+}
+```
+
+### Lifetime 
+
+``` rust 
+fn main(){
+    let n : &String;
+    {
+        let name = String::from("Snigdha");
+        n = &name;
+    }
+    println!("{n}");
+}
+```
+
+This would raise an error since the variable name does not does live long enough (Literally thats wot the compiler would say), thats because n is defined in a wider scope while name is not as referencing name to n will not exist after the scope of name exhausts - Rust wont allow this.
+
+This can be avoided by two ways : 
+1. Both of them existing in the same scope. 
+``` rust 
+fn main(){
+    let n: &String;
+    let name = String::from("Snigdha");
+    n = &name;
+    println("{n}");
+}
+```
+
+2. Usage of the terms is within the existing of the variable with a smaller scope. 
+``` rust 
+fn main(){
+    let n: &String;
+    {
+        let name = String::from("Snigdha");
+        n = &name;
+        println!("{n}");
+    }
+}
+```
+
+We have define them in the same scope or ensure the usage of the variables are within the lifetime of the variables involved. 
+
+### Ownership 
+This is an approach to memory management that rust uses instead of a garbage collector. 
+
+``` rust 
+fn main(){
+    let first = String::from("Snigdha");
+    let name = first;
+    println!("{first}") // Raises an error
+}
+```
+This raises an error since rust drops the value of first the moment it is assigned to name.
+
+``` rust 
+fn main(){
+    let score = 50;
+    let points = score;
+    println!("{score}") // This works
+}
+```
+This works and does not raise an error, here they are being copied instead of being moved. They are like two independent variables who just happen to have same values. Some type will copy while other wont, how do we know which of them copy and which of them will be moved. 
+
+Whenever copy happens they will have same value but different address in the memory so they can be changed independently. String cannot implement copy. But it does have a clone implementation which have to be explicitly called. 
+
+``` rust 
+fn main(){
+    let name = String::from("Snigdha");
+    let name2 = name.clone();
+    println!("{name} and {name2}");
+}
+```
