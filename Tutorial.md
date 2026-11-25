@@ -503,8 +503,7 @@ If we try to pass a parameter to a function, the value gets passed from the valu
 
 ``` rust 
 fn greet(frstName : &String, lstName: &String){
-    let full_name = *frstName + *lstName;
-    println!("Hello, {full_name}.");
+    println!("Hello, {frstName} {lstName}. It is nice meeting you.");
 }
 
 fn main(){
@@ -513,3 +512,33 @@ fn main(){
     greet(&first_name, &last_name);
 }
 ```
+
+We used reference here because the value gets moved to the function. The other option is would be to return the input value from the string and assign it back to the input variables. 
+
+``` rust 
+fn greet(frstName : String, lstName : String) -> (String, String) {
+    println!("Hello, {frstName} {lstName}. It is nice meeting you.");
+    return (frstName, lstName)
+}
+
+fn main(){
+    let mut first_name = "Snigdha";
+    let mut last_name = "Itla";
+    first_name, last_name = greet(first_name, last_name);
+}
+```
+
+Lets create a function where we generate data inside that and return it to the variables. 
+
+``` rust 
+fn generate_names() -> (String, String){
+    let first = String::from("Snigdha");
+    let last = String::from("Itla");
+}
+
+fn main(){
+    let (mut first, mut last) = generate_names();
+    println!("Hello {first} {last}.");
+}
+```
+
