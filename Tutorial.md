@@ -444,3 +444,72 @@ fn main(){
     println!("{name} and {name2}");
 }
 ```
+
+But the best way to not invoke clone and use them from the same memory address for types that move data is Reference. 
+
+``` rust 
+fn main(){
+    let name = String::from("Snigdha");
+    let name2 = &name
+    println!("{name} is the original name and {name2} is the referenced name.");
+}
+```
+We can also make mutliple references of the same data. 
+
+``` rust 
+fn main(){
+    let name = String::from("Snigdha");
+    let name2 = &name
+    let name3 = &name
+    let name4 = &name
+    let name5 = &name
+    println!("{name} is the original name and {name2}, {name3}, {name4}, {name5} are the referenced name.");
+}
+```
+There can be multiple references of the same data as long as they are read only aka immutable reference of the data. There are also mutable references but they cannot co exist with other mutable references or immutable refernces in a scope. Multiple immutable references can exist in a scope without any errors. 
+
+``` rust 
+fn main(){
+    let mut name = String::from("Snigdha"); // Mutuable data
+    let name1 = &mut name;
+    *name1 = String::from("Snigdha Itla"); // Dereferencing data with a asterik *. 
+    println!("Name : {name}");
+}
+```
+Similarly, we cant access the value and its mutable reference at the same time. 
+
+``` rust 
+let mut name = String::from("Smigdha");
+let name1 = &mut name;
+*name1 = String::from("Snigdha Itla");
+println!("Name : (name), Referenced Name : {name1}");
+```
+The above code would raise an error because we tried to use the value and its mutable reference at the same time. 
+This is due to non lexical lifetimes. 
+
+``` rust 
+let mut name = String::from("Snigdha");
+let name1 = &mut name;
+*name1 = String::from("Snigdha Itla");
+println!("{name1}");
+println!("{name}");
+```
+The above code would work because the lifetime of the reference ends with its last usage which is basically the first print statement. The mutable reference lifetime ends here. So, its fine to use the original data after this. 
+
+So in summary, we can use one mutable reference or multiple immutable references. Also, the value reference should be valid like the reference cannot outlive the data. 
+
+### Functions
+If we try to pass a parameter to a function, the value gets passed from the value to the function. 
+
+``` rust 
+fn greet(frstName : &String, lstName: &String){
+    let full_name = *frstName + *lstName;
+    println!("Hello, {full_name}.");
+}
+
+fn main(){
+    let first_name = String::from("Snigdha");
+    let last_name = String::from("Itla");
+    greet(&first_name, &last_name);
+}
+```
