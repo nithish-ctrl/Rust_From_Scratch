@@ -817,4 +817,42 @@ fn main(){
 
 dbg! returns ownership of the experssion's value, thw width field will get the same value as if we didn't have the dbg! call. We dont want dbg! to take ownership of rect1, so we use a reference to rect1 in the next call. 
 
+#### Methods 
+Methods are similar to functions, we use fn keyword and a name, they can have parameters and return value and they contain some code that's run when the method is called somewhere else. Unlike functions, methods are defined within contnext of a struct (or an enum or a trait object) and their first parameter is always self which represents the instance of the strict the method is being called on. 
+
+``` rust 
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main(){
+    let rect1 = Rectangle {
+        width : 30,
+        height : 50,
+    };
+
+    println!("The area of the rectangle {} square pixels.", 
+    rect1.area()
+    );
+}
+```
+We can choose to give a method the same name as the one of the struct's field, there will be no error. Rust can differentiate between them in dot notation since field variables does not need a parentheses but the method does need it. 
+
+These type of methods with name are called getters. 
+Also, rust does not have an equivalent to the -> operator, instead rust has a feature called automatic referencing and dereferencing. Calling methods is one of the few places in rust with this behaviour. 
+Ex : 
+p1.distance(&p2) and (&p1).distance(&p2) are both the same. 
+
+Rust automatically adds in &, &mut or * so  that object matches the signature of the method. 
+
+#### Methods with more parameters 
+
 
