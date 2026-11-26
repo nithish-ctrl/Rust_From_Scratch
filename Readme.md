@@ -18,3 +18,13 @@ I will set up rules for myself.
 The Tutorial file has the notes of the things I will be learning. 
 
 I will also code some optimizers we generally use in deep learning in rust to get more comfortable to implement AI concepts in rust. To be honest, thats the main goal.  
+
+## Table of Contents :
+1. Readme.md
+2. Tutorial.md
+3. Guessing_Game
+4. Tutorial
+5. Shadow_Lord
+6. Functions
+7. Optimizers
+
