@@ -602,3 +602,47 @@ fn main(){
     greet(&first.as_str(), &last.as_str())
 }
 ```
+
+### Structs to Structure related data 
+
+Defining and instantiating structs
+
+``` rust
+struct User {
+    active : bool,
+    username : String,
+    email : String,
+    sign_in_count : u64,
+}
+```
+The elements inside the curly brackets are called fields. We need to create an instance of the struct by specifying contrete values for each fields to use it. 
+We dont have to specify the fields in the same order as they are defined in the struct defintion. 
+
+Creating an instance 
+``` rust 
+let user1 = User {
+    active : true,
+    username : String::from("Snigdha Itla"),
+    email : String::from("Snigdha@gmail.com");
+    sign_in_count : 1,
+}
+```
+Accessing element from the instance. 
+``` rust 
+let user1.email = String::from("Sniggy@gmail.com");
+```
+The entire instance must be mutable. 
+
+A function to make a struct instance by taking in some input. 
+
+``` rust 
+fn make_user(username : String, email : String) -> User {
+    User {
+        active : true,
+        username : username,
+        email : email,
+        sign_in_count = 1,
+    }
+}
+```
+### Using the Field init shorthand 
