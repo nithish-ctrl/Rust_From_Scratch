@@ -645,4 +645,46 @@ fn make_user(username : String, email : String) -> User {
     }
 }
 ```
-### Using the Field init shorthand 
+Using the Field init shorthand 
+Since the function parameter and the struct field names are exactly the same, we can use field init shorthand syntax to rewrite build_user. 
+
+``` rust
+fn make_user(email : String, username: String) -> User {
+    User {
+        active : True,
+        username, 
+        email, 
+        sign_in_count: 1,
+    }
+}
+```
+
+Creating Instances with Struct Update syntax
+
+``` rust 
+fn main(){
+    let user2 = User {
+        active : user1.active,
+        username : user1.username,
+        email : String::from("Sniggy@gmail.com"),
+        sign_in_count : user1.sign_in_count,
+    };
+}
+```
+
+We can write this using,
+
+``` rust 
+fn main(){
+    let user2 = User {
+        email : "Sniggy@gmail.com",
+        ..user1
+    };
+}
+```
+The ..user1 should come in the end after specifying the fields with different values. 
+Also, this works just like assigning data, which means the value gets moved. 
+
+Only the field where we defined like email above were not created by moving. So basically every field except email of the user1 instance cant be accessed because they have been moved to user2. 
+Also only those types that will be moved (like has a heap presence or not just stack) will be moved. Other will be copied just like how assignment works. 
+
