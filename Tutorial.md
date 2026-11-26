@@ -793,4 +793,28 @@ And now we again get an error, because rust does include the functionality to pr
 
 In longer structs, we use {:#?} instead of {:?} in the println!.
 
-We can also use Debug format is to use the dbg! macro. 
+We can also use Debug format is to use the dbg! macro, which takes ownership of an expression unlike println which takes reference. dbg! macro prints the file and line number of where that dbg! macro call occurs in your code along with the resulant value of that expression, and returns ownership of the value. 
+
+Println prints to the standard output console stream (stdout), while dbg! macro prints to the standard error console stream (stderr).
+
+``` rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main(){
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale),
+        height: 50,
+    };
+
+    dbg!(&rect1);
+}
+```
+
+dbg! returns ownership of the experssion's value, thw width field will get the same value as if we didn't have the dbg! call. We dont want dbg! to take ownership of rect1, so we use a reference to rect1 in the next call. 
+
+
