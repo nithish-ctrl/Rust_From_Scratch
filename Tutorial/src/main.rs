@@ -2,7 +2,11 @@ struct Rectangle{
         width: u32,
         height: u32,
     }
-
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
 fn main(){
     let name = String::from("Snigdha");
     let name2 = &name;
@@ -37,6 +41,14 @@ fn main(){
     };
     println!("The area of the rectangle using struct tuples is {} square pixels.", 
     area_with_struct_tuples(&rectangle1));
+
+    //Using the method defined using impl Rectangle
+    let rect2 = Rectangle {
+        width : 30,
+        height : 50,
+    };
+    println!("The area of the rectangle using method of the rectangle struct is {} square pixels.",
+    rect2.area());
 
 }
 
