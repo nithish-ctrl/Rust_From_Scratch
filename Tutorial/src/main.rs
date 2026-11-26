@@ -1,3 +1,8 @@
+struct Rectangle{
+        width: u32,
+        height: u32,
+    }
+
 fn main(){
     let name = String::from("Snigdha");
     let name2 = &name;
@@ -15,6 +20,24 @@ fn main(){
     let firstName = String::from("Snigdha");
     let lastName = String::from("Itla");
     greet(&firstName, &lastName);
+
+    let width1 = 30;
+    let height1 = 50;
+    println!("The area of the rectangle is {} square pixels.",
+        area(width1, height1));
+
+    let rect1 = (30, 50);
+    println!("The area of the rectangle is using tuple struct is {} square pixels.", 
+    area_with_tuples(rect1));
+
+
+    let rectangle1 = Rectangle{
+        width: 30,
+        height: 50,
+    };
+    println!("The area of the rectangle using struct tuples is {} square pixels.", 
+    area_with_struct_tuples(&rectangle1));
+
 }
 
 fn first_name_extracter(input_string : &str) -> &str {
@@ -33,10 +56,17 @@ fn change_name_with_mutable_reference(input_string: &mut String){
 }
 
 fn greet(frstName : &String, lstName: &String){
-    println!("Hello, {frstName} {lstName}. It was nice meeting you.");
+    println!("Hello, {frstName} {lstName}. It is nice meeting you.");
 }
 
-/* 
-Structs to Structure Realted Data 
+fn area(width : u32, height : u32) -> u32 {
+    width * height
+}
 
- */
+fn area_with_tuples(dimension: (u32, u32)) -> u32 {
+    dimension.0 * dimension.1
+}
+
+fn area_with_struct_tuples(rectangle: &Rectangle) ->u32 {
+    rectangle.width * rectangle.height
+}
