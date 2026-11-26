@@ -688,3 +688,109 @@ Also, this works just like assigning data, which means the value gets moved.
 Only the field where we defined like email above were not created by moving. So basically every field except email of the user1 instance cant be accessed because they have been moved to user2. 
 Also only those types that will be moved (like has a heap presence or not just stack) will be moved. Other will be copied just like how assignment works. 
 
+#### Creating Different Types with Tuple Struct
+These are basically to create tuples with a name and differentiate them from other tuples, you only have to specify the type inside them.  
+
+``` rust
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main(){
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+```
+
+Each struct we define are its own type even though the fields we use internally are the same type. So a function that takes one struct as parameter can not take the other one. 
+Also tuple structs are similar to tuple in terms of destruturing them. While we can also use the dot notation to access them like structs in general. To destructure the tuple struct, we need to name the type of the struct. 
+Example : Point(x, y, z) = origin
+
+#### Defining Unit like Structs 
+Defining structs that done have any fields. They are called so because they are similar to (). 
+They are useful when we have to implement a trait on some type but we dont have any data to store in the type itself. 
+
+``` rust 
+struct AlwaysEqual;
+
+fn main(){
+    let subject = AlwaysEqual;
+}
+```
+
+We can use them without any curly braces or parenthesis in definition, and we will implement behaviour in such a way that AlwaysEqual is always equal to every instance of any other type. 
+
+#### Ownership of struct data 
+We used String data type instead of &str string slice type, we chose this because we want each instance of this struct to own all of its data and for that data to be valid for as long as the entire struct is valid. 
+
+Structs can also store references to data owned by something else. We will have to use lifetimes for this. Lifetime ensures that the data referenced by struct is valid as long as the struct is. If we try to store reference in a struct without specifying lifetimes, the complier will raise a 'expected named lifetime specifier'. We can fix them but right now we will just use String types. 
+
+``` rust 
+fn main(){
+    let width1 = 30;
+    let height1 = 50;
+
+    println!("The area of the reactangle is {}", area(width1, height1));
+}
+
+fn area(width : u32, height : u32) -> {
+    width * height;
+}
+```
+
+Refactoring this with tuples
+``` rust 
+fn main(){
+    let rect1 = (30, 50);
+
+    println!("The area of the rectangle is {} square pixels.",
+    area(rect1));
+}
+
+fn area(dimensions: (u32, u32)) -> u32 {
+    dimensions.0 * dimensions.1
+}
+```
+
+Refactoring this with structs
+``` rust 
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main(){
+    let rectangle1 = Rectangle{
+        width: 30,
+        height: 50,
+    };
+
+    println("The area of the rectangle is {} square pixels.", 
+    area(&rectangle1));
+}
+
+fn area(rectangle : &Rectangle)-> u32 {
+    rectangle.width * rectangle.height
+}
+```
+
+### Adding functionality with derived traits
+We cannot print an whole struct using the println! macro like we do usually, we can access the elements from it and print or do an operation of them and print, also use them in a function and print the result but we cannot print the struct itself directly. 
+
+``` rust
+println!("The rect1 struct : {rect1}");
+```
+
+This gives an error, generally println macro does a lot of formatting, and by default, the curly braces tell the macro to use formatting known as Display: output. But since structs have more than one possibilties such as "Do we need to show the commas, Do we need to show the curly braces, etc", so struct does not have a provided implementation of Display to use with println! and the {} placeholder. 
+
+Instead we use, 
+
+``` rust 
+println!("rect1 is {rect1:?}");
+```
+The use of specifier :? inside the curly brackets tell the println! that the output format called Debug should be used. The Debug trait enables us to print out struct in a way that is useful for developers so that we can see its value while our debugging our code. 
+
+And now we again get an error, because rust does include the functionality to print out the debugging information, but we have to explicitly opt in to make the functionality available for thr struct. so we add the outer attribute #[derive(Debug)] before the struct definition. 
+
+In longer structs, we use {:#?} instead of {:?} in the println!.
+
+We can also use Debug format is to use the dbg! macro. 
