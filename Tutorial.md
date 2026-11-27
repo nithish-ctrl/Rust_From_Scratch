@@ -603,7 +603,7 @@ fn main(){
 }
 ```
 
-### Structs to Structure related data 
+## Structs to Structure related data 
 
 Defining and instantiating structs
 
@@ -773,7 +773,7 @@ fn area(rectangle : &Rectangle)-> u32 {
 }
 ```
 
-### Adding functionality with derived traits
+#### Adding functionality with derived traits
 We cannot print an whole struct using the println! macro like we do usually, we can access the elements from it and print or do an operation of them and print, also use them in a function and print the result but we cannot print the struct itself directly. 
 
 ``` rust
@@ -932,3 +932,66 @@ impl Rectangle {
     }
 }
 ```
+
+## Enums and Pattern Matching 
+Enumeration also known as Enums, allows to define a type by enumerating its possible variants. 
+
+#### Definition of Enum
+Enums give a way of saying a value is one of the possible set of values. 
+
+``` rust
+enum IPAddress {
+    V4,
+    V6,
+}
+```
+IPAddress is now a custom data type that we can use elsewhere in our code. 
+
+#### Enum Values
+We will create instances for each of the variants. 
+``` rust
+let four = IPAddress::V4;
+let six = IPAddress::V6;
+```
+The variants of the enum are namespaced under its identifier, and we use a double colon to separate the two. 
+
+``` rust
+fn route(ip_kind: IPAddress) {
+} 
+```
+Lets use structs to solve this.
+``` rust
+enum IPKind {
+    V4,
+    V6,
+}
+
+struct IPAddr {
+    kind: IPKind,
+    address: String,
+}
+
+fn main() {
+    let home = IPAddr {
+        kind: IPKind::V4,
+        address: String::from("127.0.0.1"),
+    }
+
+    let loopback = IPAddr {
+        kind: IPKind::V6,
+        address: String::from("::1"),
+    }
+}
+```
+But we can just enum is more concise. Rather than an enum inside a struct, we can put data directly into each enum variant. 
+
+``` rust
+enum IPAddress {
+    V4(String),
+    V6(String),
+}
+
+let home = IPAddress::V4(String::from("127.0.0.1"));
+let loopback = IPAddress::V6(String::from("::1"));
+```
+This definition of enum says that both V4 and V6 variants will have associated String value. 
