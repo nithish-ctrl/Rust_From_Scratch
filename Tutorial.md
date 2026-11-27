@@ -994,4 +994,45 @@ enum IPAddress {
 let home = IPAddress::V4(String::from("127.0.0.1"));
 let loopback = IPAddress::V6(String::from("::1"));
 ```
-This definition of enum says that both V4 and V6 variants will have associated String value. 
+This definition of enum says that both V4 and V6 variants will have associated String value. There's another advantage to using a enum rather an struct: Each variant can have different types and amounts of associated data. 
+
+``` rust
+enum IPAddr {
+    V4(u8, u8, u8, u8),
+    V6(String),
+}
+
+fn main(){
+    let home = IPAddr::V4(127, 0, 0, 1);
+    let loopback = IPAddr::V6(String::from("::1"));
+}
+```
+We can put any kind of data into enum variant : Strings, numeric types or structs. We can even include another enum. Std library already has its own IPAddr struct and enums, we will have conflict if we try to use the same name after adding the std library into the scope. 
+
+``` rust
+enum Message {
+    Quit, 
+    Move {x: i32, y: i32},
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+```
+Quit has no data associated with it all, Move has named field like struct does, Write included a single string, ChangeColor includes three i32 values. 
+
+We can define methods on enums like we did for structs too. 
+``` rust
+impl Message {
+    fn call(&self){
+        // Method body to be here
+    }
+}
+
+fn main(){
+    let m = Message::Write(String::from("Hello"));
+    m.call();
+}
+```
+The body of the method would use self to get the value that we called the method on.
+
+#### Option Enum
+This is another enum defined by the standard library. The Option type encodes the very common scenario in which value could be something, or it could be nothing. 
