@@ -1036,3 +1036,14 @@ The body of the method would use self to get the value that we called the method
 
 #### Option Enum
 This is another enum defined by the standard library. The Option type encodes the very common scenario in which value could be something, or it could be nothing. 
+This is to prevent bugs in cases like printing details from a non-empty list and an empty list. So this functionality can prevent bugs. 
+Rust does not have a null feature, its very easy to use a null value as a non-null value and end up with an error. But null is very useful. A null is a value that is currently invalid or absent for some reason. 
+Rust does not have nulls, but it does have an enum that can encode the concept of a value being present or absent. This enum is Option<T>. 
+
+``` rust
+enum Option<T> {
+    None,
+    Some(T)
+}
+```
+Option<T> enum is so useful that its even included in the prelude. We dont have to include it in the prelude. Its variants are also included in the prelude: You can use Some and None directly without the Option:: prefix. The Option<T> enum is still just a regular enum, and Some(T) and None are all still variants of type Option<T>. 
