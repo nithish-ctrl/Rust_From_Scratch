@@ -6,6 +6,10 @@ impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
     }
+
+    fn can_hold(&self, other: Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
 }
 fn main(){
     let name = String::from("Snigdha");
@@ -49,6 +53,14 @@ fn main(){
     };
     println!("The area of the rectangle using method of the rectangle struct is {} square pixels.",
     rect2.area());
+
+    // Other method - To find if the rect can hold another rectangle.
+    let rect3 = Rectangle {
+        width: 10,
+        height: 10,
+    };
+    println!("The rectangle 1 can hold rectangle 2 : {}", rectangle1.can_hold(rect2));
+    println!("The rectangle 2 can holf rectangle 3 : {}", rectangle1.can_hold(rect3));
 
 }
 
