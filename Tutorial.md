@@ -854,5 +854,81 @@ p1.distance(&p2) and (&p1).distance(&p2) are both the same.
 Rust automatically adds in &, &mut or * so  that object matches the signature of the method. 
 
 #### Methods with more parameters 
+Lets make a second method that returbs true if one rectangle can hold another rectangle and return false if they cant. 
+``` rust
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
 
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
 
+    fn can_hold(&self, other: Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+
+fn main(){
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    let rect2 = Rectangle {
+        width: 20,
+        height: 10,
+    };
+
+    let rect3 = Rectangle {
+        width: 25,
+        height: 60,
+    };
+
+    println!("The rectangle 1 can hold rectangle 2 : {}", rect1.can_hold(rect2));
+    println!("The rectangle 1 can hold rectangle 3 : {}", rect1.can_hold(rect2));
+}
+```
+
+#### Associated Functions
+All functions defined inside the impl blocks are called associated functions because they are associated with the type named after the impl. We can also define associated functions that dont have self as their first parameter(and thus are not methods) because they dont need an instance of the type to work with. 
+
+Associated functions that are'nt method are often used for construtors that will return a new instance of the struct. They are often called new, but new is not a special name and is not built into the language. 
+
+``` rust
+impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
+}
+```
+The Self keyword in the return type and in the body of the function are aliases for the type names after the impl keyword. We use :: syntax with the struct name to call this function. 
+
+``` rust 
+let sq = Rectangle::square(3);
+```
+This function is namespaced by the struct: The :: syntax is for both associated functions and namespaces created by modules.
+
+#### Multiple impl Blocks 
+There is no need right now to use multiple impl in the example given below, later we will see why we need them. 
+``` rust 
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
+}
+```
